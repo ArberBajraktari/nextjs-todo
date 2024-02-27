@@ -3,9 +3,9 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GitHub from "next-auth/providers/github"
 import type { NextAuthConfig } from "next-auth"
 import z from 'zod'
-import bcrypt from 'bcrypt';
 import {User} from "@/app/lib/definitions"
 import {sql} from '@vercel/postgres'
+const bcrypt = require('bcryptjs');
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -26,7 +26,7 @@ export const config = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: {label: "Email", type: "email"},
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
@@ -38,11 +38,9 @@ export const config = {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password);
- 
+          const passwordsMatch = await bcrypt.compareSync(password, user.password);
           if (passwordsMatch) return user;
         }
- 
         console.log('Invalid credentials');
         return null;
       }
@@ -55,7 +53,22 @@ export const config = {
       if (pathname === "/middleware-example") return !!auth
       return true
     },
+    session: async({session, token}) => {
+      if(session?.user){
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+    jwt: async({user, token}) => {
+      if(user){
+        token.uid = user.id
+      }
+      return token
+    }
   },
+  session: {
+    strategy: 'jwt',
+  }
 } satisfies NextAuthConfig
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config)

@@ -1,24 +1,25 @@
+import { fetchProjects } from "@/app/lib/data"
 import type { Session } from "next-auth"
+import Project from "./ui/project"
+import Link from "next/link"
 
-export default function SessionData({ session }: { session: Session | null }) {
+export default async function SessionData({ session }: { session: Session | null }) {
   if (session?.user) {
+    const data = await fetchProjects(session.user.id)
+
     return (
       <div className="w-full space-y-2 overflow-auto">
-        <h2 className="text-xl font-bold">Current Session Data</h2>
-        {Object.keys(session.user).length > 3 ? (
-          <p>
-            In this example, the whole session object is passed to the page,
-            including the raw user object. Our recommendation is to{" "}
-            <em>only pass the necessary fields</em> to the page, as the raw user
-            object may contain sensitive information.
-          </p>
-        ) : (
-          <p>
-            In this example, only some fields in the user object is passed to
-            the page to avoid exposing sensitive information.
-          </p>
-        )}
-        <pre>{JSON.stringify(session, null, 2)}</pre>
+        <div className="flex flex-wrap gap-8 mt-4 justify-center">
+          {data.length > 0 && data.map((project) => {
+            return (
+              <>
+                <Link href={`/${project.id}/project`} key={`link-${project.id}`}>
+                  <Project title={project.name} id={project.id} key={`proj-${project.id}`}/>
+                </Link> 
+              </> 
+            )
+          })}
+        </div>
       </div>
     )
   }

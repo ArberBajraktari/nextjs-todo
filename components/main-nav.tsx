@@ -30,8 +30,8 @@ export function MainNav() {
             <NavigationMenuTrigger>Server Side</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <ListItem href="/server-example" title="RSC Example">
-                  Protecting React Server Component.
+                <ListItem href="/projects" title="Projects">
+                  Open the projects
                 </ListItem>
                 <ListItem href="/middleware-example" title="Middleware Example">
                   Using Middleware to protect pages & APIs.
