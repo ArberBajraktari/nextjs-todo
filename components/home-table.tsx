@@ -1,6 +1,7 @@
 "use server"
 import { fetchProjectTasks, fetchTasks } from "@/app/lib/data";
 import { Session } from "next-auth";
+import { Suspense } from "react";
 import { HomeTableItem } from "./home-table-item";
 import { ProjectTableItem } from "./project-table-item";
 import Breadcrumbs from "./ui/breadcrumbs";
@@ -42,21 +43,17 @@ export async function HomeTable({ session }: { session: Session | null }) {
                             </tr>
                         </thead>
                         <tbody>
-                        {data ? (
-                            <>
-                                {data.map((task) => {
-                                        return(
-                                            <>
-                                                <HomeTableItem props={task} />
-                                            </>
-                                        )
-                                    })}
-                            </>
-                        ) : (
-                            <HomeTableItem props={{id: "string", name: "string", status: true, priority: 1, project_id: "string",
-                                                user_id: "string", project_name: "string",}} />
-                        )}
-                            
+                            {data.map((task) => {
+                                    return(
+                                        <>
+                                        <Suspense fallback={<HomeTableItem props={{id: "string", name: "string", status: true, priority: 1, project_id: "string",
+                                            user_id: "string", project_name: "string",}} />}>
+                                            <HomeTableItem props={task} />
+                                        </Suspense>
+                                            
+                                        </>
+                                    )
+                                })}
                         </tbody>
                     </table>
                 </div>  
