@@ -29,7 +29,6 @@ export async function fetchProjectInfo(project_id: string | undefined){
 export async function fetchProjectTasks(project_id: string | undefined){
     try{
         const data = await sql<Task>`SELECT tasks.*, projects.name as project_name FROM tasks join projects on projects.id = tasks.project_id where project_id = ${project_id}`;
-        console.log(data)
         return data.rows;
     }catch(error){
         console.error('Database error', error);
@@ -40,7 +39,6 @@ export async function fetchProjectTasks(project_id: string | undefined){
 export async function fetchTasks(){
     try{
         const data = await sql<Task>`SELECT tasks.*, projects.name as project_name FROM tasks join projects on projects.id = tasks.project_id`;
-        console.log(data)
         return data.rows;
     }catch(error){
         console.error('Database error', error);

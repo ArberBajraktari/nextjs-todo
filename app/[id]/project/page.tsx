@@ -18,7 +18,7 @@ export default async function Page({params}:{params: {id: string}}){
                         {label: 'Projects', href: `/projects`},
                         {label: `${data.name}`, href: `/${data.id}/project`, active: true,},
                     ]} />
-
+                    {/* @ts-expect-error Server Component */}
                     <ProjectTable project_id={params.id}/>
                 </>
             )

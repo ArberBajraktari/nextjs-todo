@@ -19,4 +19,5 @@ export type Task = {
   priority: number;
   project_id: string;
   user_id: string;
+  project_name: string;
 }
