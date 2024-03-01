@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Checkbox } from "./checkbox";
+import { DeleteTaskButton } from "./deleteTaskButton";
 
 
 interface HomeTableItemProps {
@@ -41,9 +42,7 @@ export function HomeTableItem({ props }: HomeTableItemProps) {
             <td className="px-6 py-4">
                 $2999
             </td>
-            <td className="px-6 py-4 text-right">
-                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
+            <DeleteTaskButton task_id={props.id} project_id={props.project_id}/>
         </tr>
     )
   }

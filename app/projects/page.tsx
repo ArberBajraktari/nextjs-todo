@@ -10,13 +10,13 @@ export default async function Page() {
 
   return (
     <div className="space-y-2">
-		<div className="flex flex-row justify-between">
-				<Breadcrumbs 
-							breadcrumbs={[
-								{label: 'Projects', href: `/projects`, active: true},
-							]} />
-				<AddProjectButton />
-		</div>
+      <div className="flex flex-row justify-between m-2">
+          <Breadcrumbs 
+                breadcrumbs={[
+                  {label: 'Projects', href: `/projects`, active: true},
+                ]} />
+          <AddProjectButton user_id={session?.user?.id}/>
+      </div>
       {/* @ts-expect-error Server Component */}
       <SessionData session={session} />
     </div>

@@ -1,18 +1,25 @@
 'use client'
 
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { ProjectForm } from "./project-form"
-import { insertProject } from "@/app/lib/actions"
+import { insertProject, insertTask } from "@/app/lib/actions"
 
-export function AddProjectButton(props: {user_id: string | undefined}) {
+export function AddTaskButton(props: {user_id: string | undefined, project_id: string | undefined}) {
 
     const [showModal, setShowModal] = useState(false)
     const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+	const [priority, setPriority] = useState('');
 
-    const addProject = async() => {
-        console.log(props.user_id)
-        await insertProject(name, description, props.user_id,)
+	const handlePriorityChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setPriority(event.target.value);
+	};
+
+    const addTask = async() => {
+        // console.log(props.user_id)
+        // await insertProject(name, description, props.user_id,)
+        await insertTask(name, priority, props.project_id, props.user_id)
+		setName('')
+		setPriority('')
         setShowModal(false)
         
     }
@@ -23,7 +30,7 @@ export function AddProjectButton(props: {user_id: string | undefined}) {
           type="button"
           onClick={() => setShowModal(true)}
           className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-          Add Project
+          Add Task
         </button>
         {showModal ? (
           <>
@@ -36,7 +43,7 @@ export function AddProjectButton(props: {user_id: string | undefined}) {
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                     <h3 className="text-3xl font-semibold">
-                      Create a new Project
+                      Create a new Task
                     </h3>
                     <button
                       className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -52,23 +59,31 @@ export function AddProjectButton(props: {user_id: string | undefined}) {
                     <div className="relative p-6 flex-auto">
                         <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Project Name
+                            Task name
                         </label>
                         <input value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Football" />
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="task_name" type="text" placeholder="task-name" />
                         </div>
                         <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" >
-                            Description
-                        </label>
-                        <textarea value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Enter the description here" />
-                        </div>
+						<label className="block text-gray-700 text-sm font-bold mb-2">Priority</label>
+						{[1, 2, 3, 4, 5].map((value) => (
+							<label key={value} className="inline-flex items-center mr-4">
+								<input
+								type="radio"
+								className="form-radio h-4 w-4 rounded-md"
+								name="priority"
+								value={value}
+								checked={priority === value.toString()}
+								onChange={handlePriorityChange}
+								/>
+								<span className="ml-2">{value}</span>
+							</label>
+						))}
+                      </div>
                         <div className="flex items-center justify-between">
-                        </div>
                     </div>
+                  </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                         <button
@@ -81,7 +96,7 @@ export function AddProjectButton(props: {user_id: string | undefined}) {
                         <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => addProject()}
+                        onClick={() => addTask()}
                         >
                         Save Changes
                         </button>

@@ -1,4 +1,6 @@
 import { fetchProjectInfo } from "@/app/lib/data"
+import { AddProjectButton } from "@/components/addProjectButton"
+import { AddTaskButton } from "@/components/addTaskButton"
 import CustomLink from "@/components/custom-link"
 import { ProjectTable } from "@/components/project-table"
 import SessionData from "@/components/session-data"
@@ -11,13 +13,15 @@ export default async function Page({params}:{params: {id: string}}){
     if (session?.user) {
         if(data){
             return(
-                <>
-                    
-                    <Breadcrumbs  key={data.id}
-                    breadcrumbs={[
-                        {label: 'Projects', href: `/projects`},
-                        {label: `${data.name}`, href: `/${data.id}/project`, active: true,},
-                    ]} />
+                <> 
+		            <div className="flex flex-row justify-between m-2">
+                        <Breadcrumbs  key={data.id}
+                        breadcrumbs={[
+                            {label: 'Projects', href: `/projects`},
+                            {label: `${data.name}`, href: `/${data.id}/project`, active: true,},
+                        ]} />
+                        <AddTaskButton user_id={session?.user?.id} project_id={params.id}/>
+                    </div>
                     {/* @ts-expect-error Server Component */}
                     <ProjectTable project_id={params.id} user_id={session.user.id}/>
                 </>
