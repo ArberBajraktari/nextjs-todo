@@ -10,7 +10,7 @@ interface Checkbox {
 
 
 export function Checkbox(props: Checkbox) {
-    const [status, setStatus] = useState<boolean>()
+    const [status, setStatus] = useState<boolean>(props.status)
 
     useEffect(()=>{
         setStatus(props.status)
