@@ -3,7 +3,7 @@ import { ProjectTableItem } from "./project-table-item";
 
 interface ProjectTable {
     project_id: string;
-    user_id: string;
+    user_id: string | undefined;
   }
 
 export async function ProjectTable(props: ProjectTable) {
