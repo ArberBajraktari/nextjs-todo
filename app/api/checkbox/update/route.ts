@@ -1,6 +1,9 @@
+
 import { updateInvoice } from "@/app/lib/actions";
 import { NextResponse } from "next/server";
 import { z } from 'zod';
+
+export const dynamic = 'force-dynamic'
 
 const Checkbox = z.object({
     id: z.string(),
