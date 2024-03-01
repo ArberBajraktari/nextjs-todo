@@ -3,11 +3,12 @@ import { ProjectTableItem } from "./project-table-item";
 
 interface ProjectTable {
     project_id: string;
+    user_id: string;
   }
 
 export async function ProjectTable(props: ProjectTable) {
 
-    const data = await fetchProjectTasks(props.project_id)
+    const data = await fetchProjectTasks(props.project_id, props.user_id)
     return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

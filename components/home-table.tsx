@@ -9,9 +9,9 @@ import Breadcrumbs from "./ui/breadcrumbs";
 
 export async function HomeTable({ session }: { session: Session | null }) {
 
-    const data = await fetchTasks();
-
+    
     if(session){
+        const data = await fetchTasks(session?.user?.id);
         return (
             <>
                 <Breadcrumbs 

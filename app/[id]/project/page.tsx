@@ -19,7 +19,7 @@ export default async function Page({params}:{params: {id: string}}){
                         {label: `${data.name}`, href: `/${data.id}/project`, active: true,},
                     ]} />
                     {/* @ts-expect-error Server Component */}
-                    <ProjectTable project_id={params.id}/>
+                    <ProjectTable project_id={params.id} user_id={session.user.id}/>
                 </>
             )
         }
