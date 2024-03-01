@@ -8,8 +8,6 @@ export default async function Index() {
   const session = await auth()
   return (
     <div className="space-y-2">
-        
-      {/* @ts-expect-error Server Component */}
       <HomeTable session={session} />
     </div>
   )

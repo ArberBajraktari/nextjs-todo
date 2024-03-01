@@ -22,7 +22,6 @@ export default async function Page({params}:{params: {id: string}}){
                         ]} />
                         <AddTaskButton user_id={session?.user?.id} project_id={params.id}/>
                     </div>
-                    {/* @ts-expect-error Server Component */}
                     <ProjectTable project_id={params.id} user_id={session.user.id}/>
                 </>
             )

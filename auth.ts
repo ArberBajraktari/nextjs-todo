@@ -54,7 +54,7 @@ export const config = {
       return true
     },
     session: async({session, token}) => {
-      if(session?.user){
+      if(session?.user && typeof token.sub === 'string'){
         session.user.id = token.sub;
       }
       return session;

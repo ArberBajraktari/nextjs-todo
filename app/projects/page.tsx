@@ -17,7 +17,6 @@ export default async function Page() {
                 ]} />
           <AddProjectButton user_id={session?.user?.id}/>
       </div>
-      {/* @ts-expect-error Server Component */}
       <SessionData session={session} />
     </div>
   )
