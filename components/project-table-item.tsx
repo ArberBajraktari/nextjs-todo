@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DeleteTaskButton } from "./deleteTaskButton";
+import { EditableInput } from "./editable-input";
 
 
 interface ProjectTableItemProps {
@@ -18,22 +19,24 @@ interface ProjectTableItem {
 
 export function ProjectTableItem({ props }: ProjectTableItemProps) {
 
-
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {props.name}
+            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/12">
+                {props.status}
             </th>
-            <td className="px-6 py-4">
+            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/2">
+                <EditableInput task_id={props.id} text={props.name} project_id={props.project_id}/>
+            </th>
+            <td className="px-6 py-4 text-center w-1/12">
                 {props.priority}
             </td>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4 w-2/12">
                 <Link href={`/${props.project_id}/project`} className="bg-red-50 p-2 rounded-sm">
                     {props.project_name}
                 </Link>
             </td>
             <td className="px-6 py-4">
-                $2999
+                Date
             </td>
             <DeleteTaskButton task_id={props.id} project_id={props.project_id}/>
         </tr>

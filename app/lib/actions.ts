@@ -23,6 +23,26 @@ export async function updateInvoice(
 
 }
 
+export async function updateTask(
+  id: string | null,
+  text: string | null,
+  project_id: string | undefined
+) {
+  console.log(id, text, project_id)
+  try {
+      await sql`
+          UPDATE tasks SET name = ${text} where id = ${id}
+      `;
+      revalidatePath(`/${project_id}/project`);
+    } catch (error) {
+      // If a database error occurs, return a more specific error.
+      return {
+        message: 'Database Error: Failed to Update statu of task.',
+      };
+    }
+
+}
+
 export async function insertProject(
   name: string | undefined,
   description: string | undefined,
@@ -79,6 +99,24 @@ export async function deleteTask(
 
       revalidatePath(`/${project_id}/project`);
       // redirect('/projects');
+    } catch (error) {
+      // If a database error occurs, return a more specific error.
+      return {
+        message: 'Database Error: Failed to Update statu of task.',
+      };
+    }
+}
+
+export async function deleteProject(
+  project_id: string | undefined
+) {
+  try {
+    await sql`
+      DELETE FROM TASKS where project_id = ${project_id}
+    `;
+    await sql`
+      DELETE FROM projects where id = ${project_id}
+    `;
     } catch (error) {
       // If a database error occurs, return a more specific error.
       return {

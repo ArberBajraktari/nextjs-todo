@@ -2,6 +2,7 @@ import { fetchProjectInfo } from "@/app/lib/data"
 import { AddProjectButton } from "@/components/addProjectButton"
 import { AddTaskButton } from "@/components/addTaskButton"
 import CustomLink from "@/components/custom-link"
+import { DeleteProjectButton } from "@/components/delete-project-button"
 import { ProjectTable } from "@/components/project-table"
 import SessionData from "@/components/session-data"
 import Breadcrumbs from "@/components/ui/breadcrumbs"
@@ -20,7 +21,10 @@ export default async function Page({params}:{params: {id: string}}){
                             {label: 'Projects', href: `/projects`},
                             {label: `${data.name}`, href: `/${data.id}/project`, active: true,},
                         ]} />
-                        <AddTaskButton user_id={session?.user?.id} project_id={params.id}/>
+                        <div>
+                            <DeleteProjectButton user_id={session?.user?.id} project_id={params.id}/>
+                            <AddTaskButton user_id={session?.user?.id} project_id={params.id}/>
+                        </div>
                     </div>
                     <ProjectTable project_id={params.id} user_id={session.user.id}/>
                 </>

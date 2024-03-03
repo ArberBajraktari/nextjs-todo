@@ -10,8 +10,8 @@ export function DeleteTaskButton(props : {task_id: string, project_id: string}) 
 
     return (
         <>
-            <td className="px-6 py-4 text-right">
-                <button onClick={deleteThisTask} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+            <td className="px-6 py-4 text-center">
+                <button onClick={deleteThisTask} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">X</button>
             </td>
         </>
     )
