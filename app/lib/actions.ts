@@ -28,12 +28,12 @@ export async function updateTask(
   text: string | null,
   project_id: string | undefined
 ) {
-  console.log(id, text, project_id)
   try {
       await sql`
           UPDATE tasks SET name = ${text} where id = ${id}
       `;
       revalidatePath(`/${project_id}/project`);
+      redirect(`/${project_id}/project`);
     } catch (error) {
       // If a database error occurs, return a more specific error.
       return {

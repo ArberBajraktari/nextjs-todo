@@ -1,4 +1,5 @@
 'use client'
+import { updateTask } from "@/app/lib/actions";
 import { revalidatePath } from "next/cache";
 import { ChangeEvent, useState } from "react";
 
@@ -15,13 +16,14 @@ export function EditableInput(props: EditableInputProps) {
     }
 
     const changeInputValue = async () => {
-        await fetch(`/api/task/update?id=${props.task_id}&text=${text}&project_id=${props.project_id}`, 
-            {method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }
-        )
+        await updateTask(props.task_id, text, props.project_id)
+        // await fetch(`/api/task/update?id=${props.task_id}&text=${text}&project_id=${props.project_id}`, 
+        //     {method: 'POST', 
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         }
+        //     }
+        // )
     };
     
     return (

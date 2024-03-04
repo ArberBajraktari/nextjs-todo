@@ -5,6 +5,7 @@ import {
     User,
     Task
 } from './definitions';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchProjects(user_id: string | undefined){
     try{
@@ -27,6 +28,7 @@ export async function fetchProjectInfo(project_id: string | undefined){
 }
 
 export async function fetchProjectTasks(project_id: string | undefined, user_id: string | undefined){
+    noStore()
     try{
         const data = await sql<Task>`SELECT tasks.*, projects.name as project_name FROM tasks join projects on projects.id = tasks.project_id where project_id = ${project_id} and tasks.user_id = ${user_id}`;
         return data.rows;
