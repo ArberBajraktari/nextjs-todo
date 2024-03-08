@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 
 export async function updateInvoice(
-    id: string | null,
+    id: string | undefined,
     status: boolean | null
   ) {
     
@@ -14,6 +14,7 @@ export async function updateInvoice(
         await sql`
             UPDATE tasks SET status = ${status} where id = ${id}
         `;
+        revalidatePath('/')
       } catch (error) {
         // If a database error occurs, return a more specific error.
         return {

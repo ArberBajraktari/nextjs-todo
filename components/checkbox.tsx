@@ -1,6 +1,8 @@
 'use client'
 
+import { updateInvoice } from "@/app/lib/actions";
 import { fetchProjects } from "@/app/lib/data";
+import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
 
 interface Checkbox {
@@ -12,17 +14,9 @@ interface Checkbox {
 export function Checkbox(props: Checkbox) {
     const [status, setStatus] = useState<boolean>(props.status)
 
-    useEffect(()=>{
-        setStatus(props.status)
-    })
-
     const handleButtonClick = async () => {
-        const res = await fetch(`/api/checkbox/update?id=${props.id}&status=${props.status}`)
-        const json = await res.json()
-        if(json.message === 'ok'){
-            const oppositeStatus = !status
-            setStatus(oppositeStatus)
-        }
+        const data = await updateInvoice(props.id, !props.status)
+        setStatus(!status)
     };
 
     return (

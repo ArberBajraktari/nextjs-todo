@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Checkbox } from "./checkbox";
 import { DeleteTaskButton } from "./deleteTaskButton";
 import { EditableInput } from "./editable-input";
 
@@ -22,7 +23,7 @@ export function ProjectTableItem({ props }: ProjectTableItemProps) {
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/12">
-                {props.status}
+                <Checkbox id={props.id} status={props.status} />
             </th>
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/2">
                 <EditableInput task_id={props.id} text={props.name} project_id={props.project_id}/>
