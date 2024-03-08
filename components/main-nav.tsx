@@ -26,7 +26,23 @@ export function MainNav() {
       </CustomLink>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink 
+                className="ml-4"
+                href="/"
+              >
+                Home
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className="ml-4"
+                href="/projects"
+              >
+                Projects
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          {/* <NavigationMenuItem>
             <NavigationMenuTrigger>Server Side</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -41,15 +57,15 @@ export function MainNav() {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
+          </NavigationMenuItem> */}
+          {/* <NavigationMenuItem>
             <NavigationMenuLink
               href="/client-example"
               className={navigationMenuTriggerStyle()}
             >
               Client Side
             </NavigationMenuLink>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
         </NavigationMenuList>
       </NavigationMenu>
     </div>
