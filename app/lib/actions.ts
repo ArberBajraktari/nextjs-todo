@@ -98,6 +98,7 @@ export async function deleteTask(
         DELETE FROM TASKS where id = ${task_id}
       `;
 
+      revalidatePath(`/`);
       revalidatePath(`/${project_id}/project`);
       // redirect('/projects');
     } catch (error) {
